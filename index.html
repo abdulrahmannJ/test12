@@ -1,0 +1,2430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>MSA County | Digital Permits</title>
+    <meta
+      name="description"
+      content="Apply, track, verify, and pay for MSA County permits online — fast, secure, and fully digital."
+    />
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <style>
+      /* Enhanced Variables */
+      :root {
+        --primary-h: 200;
+        --primary-s: 85%;
+        --primary-l: 45%;
+        --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+        --primary-50: hsla(var(--primary-h), 100%, 98%, 1);
+        --primary-100: hsla(var(--primary-h), 95%, 92%, 1);
+        --primary-200: hsla(var(--primary-h), 85%, 85%, 1);
+        --primary-500: hsla(var(--primary-h), 80%, 55%, 1);
+        --primary-600: hsla(var(--primary-h), 85%, 45%, 1);
+        --primary-700: hsla(var(--primary-h), 90%, 35%, 1);
+        --primary-800: hsla(var(--primary-h), 95%, 25%, 1);
+
+        --accent-h: 280;
+        --accent-s: 75%;
+        --accent-l: 60%;
+        --accent: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+        --accent-100: hsla(var(--accent-h), 60%, 95%, 1);
+        --accent-200: hsla(var(--accent-h), 55%, 88%, 1);
+
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --success-bg: #ecfdf5;
+        --warning-bg: #fef3c7;
+        --danger-bg: #fee2e2;
+
+        --text: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --bg: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-subtle: #f1f5f9;
+        --border: #e2e8f0;
+        --border-light: #f1f5f9;
+
+        --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+        --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.1),
+          0 1px 2px rgba(15, 23, 42, 0.06);
+        --shadow-md: 0 4px 6px rgba(15, 23, 42, 0.07),
+          0 2px 4px rgba(15, 23, 42, 0.06);
+        --shadow-lg: 0 10px 15px rgba(15, 23, 42, 0.1),
+          0 4px 6px rgba(15, 23, 42, 0.05);
+        --shadow-xl: 0 20px 25px rgba(15, 23, 42, 0.1),
+          0 10px 10px rgba(15, 23, 42, 0.04);
+        --shadow-2xl: 0 25px 50px rgba(15, 23, 42, 0.25);
+
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-xl: 20px;
+        --radius-2xl: 24px;
+        --container: 1200px;
+
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+
+      /* Base Styles */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "Roboto", "Helvetica Neue", sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Smooth reveal animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: -1000px 0;
+        }
+        100% {
+          background-position: 1000px 0;
+        }
+      }
+
+      .animate-in {
+        animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        opacity: 0;
+      }
+      .animate-in-left {
+        animation: fadeInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        opacity: 0;
+      }
+      .animate-in-right {
+        animation: fadeInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        opacity: 0;
+      }
+      .animate-scale {
+        animation: scaleIn 0.5s var(--bounce) forwards;
+        opacity: 0;
+      }
+      .float {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      /* Enhanced Typography */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 0;
+        line-height: 1.2;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+      }
+      h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+      }
+      h2 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+      }
+      h3 {
+        font-size: clamp(1.25rem, 3vw, 1.875rem);
+      }
+      h4 {
+        font-size: 1.25rem;
+      }
+      p {
+        margin: 0;
+      }
+
+      /* Modern Container & Grid */
+      .container {
+        max-width: var(--container);
+        margin: 0 auto;
+        padding: 0 clamp(1rem, 4vw, 2rem);
+      }
+      .grid {
+        display: grid;
+        gap: clamp(1.5rem, 3vw, 2rem);
+      }
+      .grid-2 {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+      .grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+      .grid-4 {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      @media (min-width: 768px) {
+        .md\:grid-2 {
+          grid-template-columns: 1fr 1fr;
+        }
+        .md\:grid-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .md\:grid-4 {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      /* Enhanced Navbar */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: saturate(180%) blur(20px);
+        border-bottom: 1px solid var(--border-light);
+        transition: var(--transition);
+      }
+      .navbar.scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: var(--shadow-md);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1rem;
+        transition: var(--transition);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 800;
+        font-size: 1.125rem;
+        transition: var(--transition);
+      }
+      .brand:hover {
+        transform: translateY(-1px);
+      }
+      .brand-badge {
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-md);
+        background: linear-gradient(
+          135deg,
+          var(--primary-100),
+          var(--primary-200)
+        );
+        color: var(--primary);
+        display: grid;
+        place-items: center;
+        box-shadow: var(--shadow-sm);
+        font-size: 1.25rem;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        transition: var(--transition-slow);
+      }
+      .nav-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        position: relative;
+        transition: var(--transition);
+        padding: 0.5rem 0;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--primary);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+        border-radius: 1px;
+      }
+      .nav-link:hover {
+        color: var(--primary);
+      }
+      .nav-link:hover::after {
+        transform: scaleX(1);
+      }
+      .nav-cta {
+        padding: 0.75rem 1.5rem;
+        border: 0;
+        border-radius: var(--radius-xl);
+        background: linear-gradient(135deg, var(--primary), var(--primary-600));
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+      .nav-cta::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+      }
+      .nav-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        filter: brightness(1.1);
+      }
+      .nav-cta:hover::before {
+        transform: translateX(100%);
+      }
+
+      /* Mobile Navigation */
+      .nav-toggle {
+        display: none;
+        background: transparent;
+        border: 0;
+        padding: 0.5rem;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .nav-toggle:hover {
+        background: var(--bg-subtle);
+      }
+      .nav-toggle span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--text);
+        border-radius: 2px;
+        transition: var(--transition);
+        margin: 4px 0;
+      }
+      .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+      }
+      .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 100%;
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(20px);
+          border-top: 1px solid var(--border);
+          padding: 1.5rem;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+          transform: translateY(-20px);
+          opacity: 0;
+          visibility: hidden;
+          transition: var(--transition-slow);
+        }
+        .nav-links.open {
+          transform: translateY(0);
+          opacity: 1;
+          visibility: visible;
+        }
+        .nav-toggle {
+          display: flex;
+          flex-direction: column;
+        }
+        .nav-cta {
+          margin-top: 1rem;
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      /* Hero Section */
+      .hero {
+        position: relative;
+        padding: clamp(4rem, 1vw, 8rem) 0;
+        background: radial-gradient(
+            ellipse at top,
+            var(--primary-50),
+            transparent 70%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.9),
+            rgba(248, 250, 252, 0.9)
+          ),
+          url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f1f5f9' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          1200px 600px at 50% 20%,
+          rgba(59, 130, 246, 0.1),
+          transparent 50%
+        );
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+      .hero-grid {
+        /* align-items: center; */
+        gap: clamp(2rem, 5vw, 4rem);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: var(--radius-xl);
+        padding: 0.5rem 1rem;
+        background: var(--primary-50);
+        color: var(--primary-700);
+        border: 1px solid var(--primary-200);
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-sm);
+        animation: pulse 2s infinite;
+      }
+
+      .hero h1 {
+        margin: 0 0 1.5rem;
+        background: linear-gradient(135deg, var(--text), var(--primary-600));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .lead {
+        color: var(--text-secondary);
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        margin: 0 0 2rem;
+        line-height: 1.7;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 0 0 2rem;
+      }
+
+      .hero-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        color: var(--text-muted);
+        font-size: 0.875rem;
+      }
+      .hero-features span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--bg-secondary);
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border-light);
+      }
+
+      .hero-card {
+        background: var(--bg);
+        border-radius: var(--radius-2xl);
+        box-shadow: var(--shadow-2xl);
+        padding: 1rem;
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition-slow);
+      }
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+      }
+      .hero-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-2xl);
+      }
+
+      .img {
+        width: 100%;
+        height: auto;
+        border-radius: var(--radius-lg);
+        display: block;
+        transition: var(--transition);
+      }
+
+      /* Enhanced Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border-radius: var(--radius-md);
+        padding: 0.875rem 1.5rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        font-size: 0.9rem;
+      }
+
+      .btn-cta {
+        background: linear-gradient(135deg, var(--primary), var(--primary-600));
+        color: white;
+        border: 0;
+        box-shadow: var(--shadow-md);
+      }
+      .btn-cta::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+      }
+      .btn-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        filter: brightness(1.1);
+      }
+      .btn-cta:hover::before {
+        transform: translateX(100%);
+      }
+
+      .btn-outline {
+        background: var(--bg);
+        border: 2px solid var(--primary-200);
+        color: var(--primary);
+        box-shadow: var(--shadow-sm);
+      }
+      .btn-outline:hover {
+        background: var(--primary-50);
+        border-color: var(--primary);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .btn-soft {
+        background: var(--primary-100);
+        color: var(--primary-700);
+        border: 1px solid var(--primary-200);
+        box-shadow: var(--shadow-sm);
+      }
+      .btn-soft:hover {
+        background: var(--primary-200);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+
+      /* Enhanced Sections */
+      .section {
+        padding: clamp(3rem, 6vw, 6rem) 0;
+      }
+      .section-header {
+        text-align: center;
+        margin: 0 0 clamp(2rem, 4vw, 4rem);
+      }
+      .section-title {
+        margin: 0 0 1rem;
+      }
+      .section-subtitle {
+        color: var(--text-secondary);
+        font-size: 1.125rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Enhanced Cards */
+      .card {
+        background: var(--bg);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-sm);
+        padding: clamp(1.5rem, 3vw, 2rem);
+        transition: var(--transition-slow);
+        position: relative;
+        border: 1px solid var(--border-light);
+      }
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        border-radius: var(--radius-xl);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--primary-200);
+      }
+      .card:hover::before {
+        opacity: 1;
+      }
+
+      .icon {
+        width: 56px;
+        height: 56px;
+        border-radius: var(--radius-lg);
+        display: grid;
+        place-items: center;
+        font-size: 1.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-100),
+          var(--primary-200)
+        );
+        color: var(--primary);
+        margin: 0 0 1.5rem;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+      }
+      .card:hover .icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      /* Stats Section */
+      .stats-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary-50),
+          var(--bg-secondary)
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      .stats-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f1f5f9' fill-opacity='0.3'%3E%3Cpolygon points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.1;
+      }
+      .stat h3 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3rem);
+        background: linear-gradient(135deg, var(--primary), var(--primary-600));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .stat p {
+        margin: 0.5rem 0 0;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      /* Form Elements */
+      .input {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid var(--border);
+        border-radius: var(--radius-md);
+        font: inherit;
+        background: var(--bg);
+        color: var(--text);
+        transition: var(--transition);
+      }
+      .input:focus {
+        outline: 0;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+      }
+      .input-group {
+        display: flex;
+        gap: 0.75rem;
+        margin: 0 0 1rem;
+      }
+
+      .alert {
+        padding: 1rem 1.25rem;
+        border-radius: var(--radius-md);
+        margin: 1rem 0 0;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .alert-success {
+        background: var(--success-bg);
+        color: #065f46;
+        border-left: 4px solid var(--success);
+      }
+      .alert-warning {
+        background: var(--warning-bg);
+        color: #92400e;
+        border-left: 4px solid var(--warning);
+      }
+      .alert-danger {
+        background: var(--danger-bg);
+        color: #991b1b;
+        border-left: 4px solid var(--danger);
+      }
+
+      /* Enhanced Carousel */
+      .carousel {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--radius-2xl);
+        box-shadow: var(--shadow-xl);
+        background: var(--bg);
+        border: 1px solid var(--border-light);
+      }
+      .slides {
+        display: flex;
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .slide {
+        min-width: 100%;
+        padding: clamp(2rem, 4vw, 3rem);
+        text-align: center;
+      }
+      .slide blockquote {
+        margin: 0 0 2rem;
+        font-size: clamp(1.125rem, 2vw, 1.375rem);
+        line-height: 1.7;
+        color: var(--text);
+        font-style: italic;
+        position: relative;
+      }
+      .slide blockquote::before,
+      .slide blockquote::after {
+        content: '"';
+        font-size: 4rem;
+        color: var(--primary-200);
+        position: absolute;
+        line-height: 1;
+      }
+      .slide blockquote::before {
+        top: -1rem;
+        left: -1rem;
+      }
+      .slide blockquote::after {
+        bottom: -2rem;
+        right: -1rem;
+      }
+
+      .carousel .ctrl {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--bg);
+        color: var(--text);
+        border: 2px solid var(--border);
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: var(--shadow-md);
+      }
+      .carousel .ctrl:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: var(--shadow-lg);
+      }
+      .carousel .prev {
+        left: 1rem;
+      }
+      .carousel .next {
+        right: 1rem;
+      }
+
+      /* Enhanced Accordion */
+      .accordion {
+        display: grid;
+        gap: 1rem;
+      }
+      .acc-item {
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        background: var(--bg);
+        border: 1px solid var(--border-light);
+        transition: var(--transition);
+      }
+      .acc-item:hover {
+        box-shadow: var(--shadow-md);
+      }
+      .acc-btn {
+        width: 100%;
+        text-align: left;
+        padding: 1.5rem 2rem;
+        background: var(--bg);
+        border: 0;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .acc-btn::after {
+        content: "⌄";
+        transition: transform 0.3s ease;
+        font-size: 1.25rem;
+        color: var(--primary);
+      }
+      .acc-btn.open {
+        background: var(--primary-50);
+      }
+      .acc-btn.open::after {
+        transform: rotate(180deg);
+      }
+      .acc-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .acc-inner {
+        padding: 0 2rem 2rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      /* Enhanced Footer */
+      footer {
+        background: linear-gradient(135deg, var(--text), var(--primary-800));
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+      footer::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.3;
+      }
+      .footer-content {
+        position: relative;
+        z-index: 2;
+      }
+      .footer-top {
+        padding: clamp(3rem, 5vw, 5rem) 0;
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 2rem 0;
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 1rem;
+        font-weight: 700;
+        font-size: 1.25rem;
+      }
+      .footer h4 {
+        margin: 0 0 1.5rem;
+        color: white;
+      }
+      .links {
+        display: grid;
+        gap: 0.75rem;
+      }
+      .link {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+      .link:hover {
+        color: white;
+        transform: translateX(4px);
+      }
+
+      /* Back to top */
+      #toTop {
+        position: fixed;
+        right: 1.5rem;
+        bottom: 1.5rem;
+        width: 56px;
+        height: 56px;
+        border: 0;
+        border-radius: var(--radius-lg);
+        background: var(--primary);
+        color: white;
+        display: grid;
+        place-items: center;
+        box-shadow: var(--shadow-xl);
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+        transition: var(--transition);
+        z-index: 100;
+        font-size: 1.25rem;
+        cursor: pointer;
+      }
+      #toTop.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      #toTop:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-2xl);
+        background: var(--primary-600);
+      }
+
+      /* Loading States */
+      .loading {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+
+      /* Responsive Improvements */
+      @media (max-width: 640px) {
+        .hero-actions {
+          flex-direction: column;
+        }
+        .hero-actions .btn {
+          width: 100%;
+          justify-content: center;
+        }
+        .hero-features {
+          justify-content: center;
+        }
+        .input-group {
+          flex-direction: column;
+        }
+        .carousel .ctrl {
+          display: none;
+        }
+        .grid {
+          gap: 1rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          text-align: center;
+        }
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .hero-card {
+          order: -1;
+        }
+      }
+
+      /* Accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        .float {
+          animation: none;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      /* Focus styles */
+      :focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+        border-radius: var(--radius-sm);
+      }
+    </style>
+    <style>
+      .logo {
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap: 10px;
+       /* margin-bottom: 30px; */
+       flex-wrap: wrap;
+   }
+
+   .logo img {
+       height: 70px;
+       width: auto;
+   }
+
+   .logo-text svg {
+       max-width: 100%;
+       height: auto;
+   }
+
+   @media (max-width: 576px) {
+
+
+
+
+
+.logo {
+flex-direction: row;
+align-items: center;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
+
+.logo img {
+height: 50px;
+}
+
+.logo-text svg {
+width: 100%;
+height: auto;
+}
+}
+    </style>
+  </head>
+  <body>
+    <!-- Enhanced Navbar -->
+    <nav class="navbar" aria-label="Primary">
+      <div class="container nav-inner">
+        <a href="#hero" class="brand animate-in-left">
+          <!-- <span class="brand-badge float" aria-hidden="true">🛡️</span>
+          <span>MSA County Permits</span> -->
+       
+          <div class="logo">
+            <!-- County Government Logo - Replace with your actual logo -->
+            <img src="assets/msa_logo.png" alt="">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="45" viewBox="0 0 200 45">
+                <text x="0" y="20" font-family="Arial" font-size="22" font-weight="bold" fill="#F7A800">MSA COUNTY</text>
+                <text x="0" y="38" font-family="Arial" font-size="18" fill="#0033A0">GOVERNMENT</text>
+            </svg>
+        </div>
+
+        
+         
+
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+          <a class="nav-link" href="#permits">Permits</a>
+          <a class="nav-link" href="#how">How it works</a>
+          <a class="nav-link" href="#testimonials">Testimonials</a>
+          <a class="nav-link" href="#faqs">FAQs</a>
+          <a class="nav-link" href="#contact">Contact</a>
+          <a class="nav-cta" href="#apply">Apply Now</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Enhanced Hero -->
+    <header id="hero" class="hero">
+      <div class="container hero-content">
+        <div class="grid md:grid-2 hero-grid">
+          <div class="animate-in-left">
+            <div class="badge">
+              <span>✨</span>
+              <span>100% Digital • Fast • Secure</span>
+            </div>
+            <h1>Apply for County Permits Online — Anywhere, Anytime</h1>
+            <p class="lead">
+              Residents and contractors can apply, track, verify validity, and
+              pay for permits entirely online. Streamlined, secure, and designed
+              for simplicity.
+            </p>
+            <div class="hero-actions">
+              <a href="#apply" class="btn btn-cta">
+                <span>🚀</span>
+                Apply Now
+              </a>
+              <a href="#track" class="btn btn-outline">
+                <span>📍</span>
+                Track Your Permit
+              </a>
+              <a href="#faqs" class="btn btn-soft">
+                <span>❓</span>
+                Check Validity & FAQs
+              </a>
+            </div>
+            <!-- <div class="hero-features">
+              <span><span>🔒</span> Secure Payments</span>
+              <span><span>⚡</span> Faster Approvals</span>
+              <span><span>📊</span> Real-time Tracking</span>
+            </div> -->
+          </div>
+          <div class="animate-in-right">
+            <div class="hero-card">
+              <img
+                class="img"
+                src="https://picsum.photos/800/600?random=1"
+                alt="Digital permit application interface" />
+              <!-- <div style="display: flex; gap: 12px; margin-top: 1rem">
+                <a href="#apply" class="btn btn-cta" style="flex: 1">
+                  <span>✨</span>
+                  Start Application
+                </a>
+                <a href="#permits" class="btn btn-soft">
+                  <span>📋</span>
+                  View Types
+                </a> -->
+                <div class="hero-features" style="margin-top: 1rem">
+                  <span><span>🔒</span> Secure Payments</span>
+                  <span><span>⚡</span> Faster Approvals</span>
+                  <span><span>📊</span> Real-time Tracking</span>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="hero-features">
+              <span><span>🔒</span> Secure Payments</span>
+              <span><span>⚡</span> Faster Approvals</span>
+              <span><span>📊</span> Real-time Tracking</span>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Enhanced Stats -->
+    <section class="section stats-section">
+      <div class="container">
+        <div class="grid md:grid-4">
+          <div class="card stat animate-scale" style="animation-delay: 0.1s">
+            <h3>15,000+</h3>
+            <p>Permits processed successfully</p>
+          </div>
+          <div class="card stat animate-scale" style="animation-delay: 0.2s">
+            <h3>24/7</h3>
+            <p>Apply anytime, anywhere</p>
+          </div>
+          <div class="card stat animate-scale" style="animation-delay: 0.3s">
+            <h3>98%</h3>
+            <p>Customer satisfaction rate</p>
+          </div>
+          <div class="card stat animate-scale" style="animation-delay: 0.4s">
+            <h3>Zero</h3>
+            <p>In-person lines required</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Permit Types -->
+    <section id="permits" class="section">
+      <div class="container">
+        <div class="section-header animate-in">
+          <h2 class="section-title">Permit Types Available</h2>
+          <p class="section-subtitle">
+            Choose the permit that matches your project. Apply and pay online
+            within minutes with our streamlined process.
+          </p>
+        </div>
+        <div class="grid md:grid-2" style="gap: 2rem">
+          <div class="card animate-in" style="animation-delay: 0.1s">
+            <div class="icon">💼</div>
+            <h3 style="margin: 0 0 1rem">Occupational Permits</h3>
+            <p
+              style="
+                color: var(--text-secondary);
+                margin: 0 0 1.5rem;
+                line-height: 1.6;
+              "
+            >
+              Essential permits for businesses and professionals operating
+              within MSA County boundaries.
+            </p>
+            <div style="margin: 0 0 1.5rem">
+              <h4
+                style="
+                  font-size: 1rem;
+                  margin: 0 0 0.5rem;
+                  color: var(--primary);
+                "
+              >
+                Requirements Include:
+              </h4>
+              <ul
+                style="
+                  margin: 0;
+                  padding-left: 1.5rem;
+                  color: var(--text-secondary);
+                "
+              >
+                <li>Proof of professional qualifications</li>
+                <li>Business registration documents</li>
+                <li>Insurance and compliance certificates</li>
+              </ul>
+            </div>
+            <a href="#apply" class="btn btn-soft" style="width: 100%">
+              <span>🎯</span>
+              Apply for Occupational Permit
+            </a>
+          </div>
+
+          <div class="card animate-in" style="animation-delay: 0.2s">
+            <div class="icon">🔨</div>
+            <h3 style="margin: 0 0 1rem">Demolition Permits</h3>
+            <p
+              style="
+                color: var(--text-secondary);
+                margin: 0 0 1.5rem;
+                line-height: 1.6;
+              "
+            >
+              Required for full or partial structure removal projects with
+              safety protocols.
+            </p>
+            <div style="margin: 0 0 1.5rem">
+              <h4
+                style="
+                  font-size: 1rem;
+                  margin: 0 0 0.5rem;
+                  color: var(--primary);
+                "
+              >
+                Requirements Include:
+              </h4>
+              <ul
+                style="
+                  margin: 0;
+                  padding-left: 1.5rem;
+                  color: var(--text-secondary);
+                "
+              >
+                <li>Detailed site and demolition plans</li>
+                <li>Safety measures documentation</li>
+                <li>Waste management and disposal plan</li>
+              </ul>
+            </div>
+            <a href="#apply" class="btn btn-soft" style="width: 100%">
+              <span>🏗️</span>
+              Apply for Demolition Permit
+            </a>
+          </div>
+
+          <div class="card animate-in" style="animation-delay: 0.3s">
+            <div class="icon">🧱</div>
+            <h3 style="margin: 0 0 1rem">Hoarding Permits</h3>
+            <p
+              style="
+                color: var(--text-secondary);
+                margin: 0 0 1.5rem;
+                line-height: 1.6;
+              "
+            >
+              For temporary structures and safety hoarding around construction
+              sites.
+            </p>
+            <div style="margin: 0 0 1.5rem">
+              <h4
+                style="
+                  font-size: 1rem;
+                  margin: 0 0 0.5rem;
+                  color: var(--primary);
+                "
+              >
+                Requirements Include:
+              </h4>
+              <ul
+                style="
+                  margin: 0;
+                  padding-left: 1.5rem;
+                  color: var(--text-secondary);
+                "
+              >
+                <li>Hoarding design and specifications</li>
+                <li>Project timeline and duration</li>
+                <li>Public safety and access plan</li>
+              </ul>
+            </div>
+            <a href="#apply" class="btn btn-soft" style="width: 100%">
+              <span>🚧</span>
+              Apply for Hoarding Permit
+            </a>
+          </div>
+
+          <div class="card animate-in" style="animation-delay: 0.4s">
+            <div class="icon">🗑️</div>
+            <h3 style="margin: 0 0 1rem">Dumping Permits</h3>
+            <p
+              style="
+                color: var(--text-secondary);
+                margin: 0 0 1.5rem;
+                line-height: 1.6;
+              "
+            >
+              Authorized material dumping permits for designated county disposal
+              areas.
+            </p>
+            <div style="margin: 0 0 1.5rem">
+              <h4
+                style="
+                  font-size: 1rem;
+                  margin: 0 0 0.5rem;
+                  color: var(--primary);
+                "
+              >
+                Requirements Include:
+              </h4>
+              <ul
+                style="
+                  margin: 0;
+                  padding-left: 1.5rem;
+                  color: var(--text-secondary);
+                "
+              >
+                <li>Material type and quantity details</li>
+                <li>Approved disposal location info</li>
+                <li>Environmental compliance documentation</li>
+              </ul>
+            </div>
+            <a href="#apply" class="btn btn-soft" style="width: 100%">
+              <span>♻️</span>
+              Apply for Dumping Permit
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced How It Works -->
+    <section id="how" class="section" style="background: var(--bg-secondary)">
+      <div class="container">
+        <div class="section-header animate-in">
+          <h2 class="section-title">How Our Digital Process Works</h2>
+          <p class="section-subtitle">
+            From application to approval, everything happens online. Track your
+            progress at every step of the way.
+          </p>
+        </div>
+        <div class="grid md:grid-4">
+          <div class="card animate-in" style="animation-delay: 0.1s">
+            <div class="icon">🚀</div>
+            <h4 style="margin: 0 0 1rem">1. Create Account</h4>
+            <p style="color: var(--text-secondary); line-height: 1.6">
+              Sign up with your email address and create a secure account to
+              manage all your permit applications in one place.
+            </p>
+          </div>
+          <div class="card animate-in" style="animation-delay: 0.2s">
+            <div class="icon">📝</div>
+            <h4 style="margin: 0 0 1rem">2. Complete Application</h4>
+            <p style="color: var(--text-secondary); line-height: 1.6">
+              Fill out our guided application form and securely upload all
+              required supporting documents.
+            </p>
+          </div>
+          <div class="card animate-in" style="animation-delay: 0.3s">
+            <div class="icon">💳</div>
+            <h4 style="margin: 0 0 1rem">3. Secure Payment</h4>
+            <p style="color: var(--text-secondary); line-height: 1.6">
+              Complete your payment online using our secure, encrypted payment
+              processing system.
+            </p>
+          </div>
+          <div class="card animate-in" style="animation-delay: 0.4s">
+            <div class="icon">✅</div>
+            <h4 style="margin: 0 0 1rem">4. Receive Permit</h4>
+            <p style="color: var(--text-secondary); line-height: 1.6">
+              Get your approved digital permit instantly and verify its validity
+              anytime, anywhere.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Apply + Track Widget -->
+    <section id="apply" class="section">
+      <div class="container">
+        <div
+          class="grid md:grid-2"
+          style="align-items: center; gap: clamp(2rem, 5vw, 4rem)"
+        >
+          <div class="animate-in-left">
+            <h2 class="section-title" style="text-align: left">
+              Start Your Application Today
+            </h2>
+            <p
+              style="
+                color: var(--text-secondary);
+                font-size: 1.125rem;
+                line-height: 1.7;
+                margin: 0 0 2rem;
+              "
+            >
+              Get started in minutes with our intuitive application process.
+              Save your progress, track status updates, and make secure payments
+              entirely online.
+            </p>
+            <div
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin: 0 0 1.5rem;
+              "
+            >
+              <a class="btn btn-cta" href="#permits">
+                <span>🎯</span>
+                Choose Permit Type
+              </a>
+              <a class="btn btn-outline" href="#track">
+                <span>📊</span>
+                Track Existing Application
+              </a>
+              <a class="btn btn-soft" href="#faqs">
+                <span>❓</span>
+                View FAQs & Help
+              </a>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem">
+              <span>💬</span> Need assistance? Email
+              <a
+                href="mailto:support@msa.gov"
+                style="color: var(--primary); text-decoration: none"
+                >support@msa.gov</a
+              >
+              or check our comprehensive FAQ section below.
+            </p>
+          </div>
+
+          <div id="track" class="animate-in-right">
+            <div
+              class="card"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  var(--primary-50),
+                  var(--bg)
+                );
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 1rem;
+                  margin: 0 0 1.5rem;
+                "
+              >
+                <div class="icon" style="margin: 0">📊</div>
+                <div>
+                  <h4 style="margin: 0 0 0.25rem">
+                    Track or Verify Your Permit
+                  </h4>
+                  <p
+                    style="
+                      color: var(--text-secondary);
+                      margin: 0;
+                      font-size: 0.9rem;
+                    "
+                  >
+                    Enter your permit number to check status and validity
+                    instantly
+                  </p>
+                </div>
+              </div>
+
+              <form id="trackForm">
+                <div class="input-group">
+                  <input
+                    id="permitInput"
+                    class="input"
+                    type="text"
+                    placeholder="Enter permit number (e.g., MSA-12345)"
+                    aria-label="Permit number"
+                    style="font-size: 1rem"
+                  />
+                </div>
+                <div style="display: grid; gap: 0.75rem">
+                  <button id="trackBtn" class="btn btn-cta" type="submit">
+                    <span>🔍</span>
+                    <span>Track Status Now</span>
+                  </button>
+                  <a href="#faqs" class="btn btn-soft">
+                    <span>❓</span>
+                    View Help & FAQs
+                  </a>
+                </div>
+                <div id="trackResult" aria-live="polite"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Testimonials -->
+    <section
+      id="testimonials"
+      class="section"
+      style="background: var(--bg-secondary)"
+    >
+      <div class="container">
+        <div class="section-header animate-in">
+          <h2 class="section-title">What Our Community Says</h2>
+          <p class="section-subtitle">
+            Real stories from residents and contractors who've successfully used
+            our digital permit system.
+          </p>
+        </div>
+        <div class="carousel animate-in" id="carousel">
+          <div class="slides" id="slides">
+            <div class="slide">
+              <div style="max-width: 600px; margin: 0 auto">
+                <blockquote>
+                  The online permit process saved us days of paperwork and
+                  waiting in line. The real-time approval updates were
+                  incredibly helpful for our construction timeline.
+                </blockquote>
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+                  "
+                >
+                  <img
+                    src="https://picsum.photos/80/80?random=1"
+                    alt="Customer testimonial"
+                    style="
+                      width: 60px;
+                      height: 60px;
+                      border-radius: 50%;
+                      border: 3px solid var(--primary-200);
+                    "
+                  />
+                  <div style="text-align: left">
+                    <div style="font-weight: 600; color: var(--text)">
+                      Sarah K.
+                    </div>
+                    <div
+                      style="color: var(--text-secondary); font-size: 0.9rem"
+                    >
+                      Resident, West Ward
+                    </div>
+                    <div style="color: var(--primary); font-size: 0.8rem">
+                      ⭐⭐⭐⭐⭐
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <div style="max-width: 600px; margin: 0 auto">
+                <blockquote>
+                  As a contractor, being able to pay fees online and track
+                  multiple permit statuses from one dashboard has transformed
+                  how we manage our projects. Highly recommend!
+                </blockquote>
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+                  "
+                >
+                  <img
+                    src="https://picsum.photos/80/80?random=2"
+                    alt="Customer testimonial"
+                    style="
+                      width: 60px;
+                      height: 60px;
+                      border-radius: 50%;
+                      border: 3px solid var(--primary-200);
+                    "
+                  />
+                  <div style="text-align: left">
+                    <div style="font-weight: 600; color: var(--text)">
+                      BuildRight Construction
+                    </div>
+                    <div
+                      style="color: var(--text-secondary); font-size: 0.9rem"
+                    >
+                      Licensed Contractor
+                    </div>
+                    <div style="color: var(--primary); font-size: 0.8rem">
+                      ⭐⭐⭐⭐⭐
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <div style="max-width: 600px; margin: 0 auto">
+                <blockquote>
+                  No more taking time off work to stand in government lines. I
+                  applied for my business permit during lunch break and had
+                  approval by the next day. Amazing!
+                </blockquote>
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+                  "
+                >
+                  <img
+                    src="https://picsum.photos/80/80?random=3"
+                    alt="Customer testimonial"
+                    style="
+                      width: 60px;
+                      height: 60px;
+                      border-radius: 50%;
+                      border: 3px solid var(--primary-200);
+                    "
+                  />
+                  <div style="text-align: left">
+                    <div style="font-weight: 600; color: var(--text)">
+                      James M.
+                    </div>
+                    <div
+                      style="color: var(--text-secondary); font-size: 0.9rem"
+                    >
+                      Business Owner, North District
+                    </div>
+                    <div style="color: var(--primary); font-size: 0.8rem">
+                      ⭐⭐⭐⭐⭐
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="ctrl prev" aria-label="Previous testimonial" id="prev">
+            ‹
+          </button>
+          <button class="ctrl next" aria-label="Next testimonial" id="next">
+            ›
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced FAQs -->
+    <section id="faqs" class="section">
+      <div class="container">
+        <div class="section-header animate-in">
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-subtitle">
+            Everything you need to know about MSA County's digital permit
+            system. Can't find what you're looking for?
+          </p>
+        </div>
+        <div class="accordion animate-in" id="faq">
+          <div class="acc-item">
+            <button class="acc-btn">
+              <span>How do I check if my permit is valid and active?</span>
+            </button>
+            <div class="acc-content">
+              <div class="acc-inner">
+                Use our Track/Verify tool above to enter your permit number
+                (format: MSA-XXXXX) and instantly see the current status,
+                validity period, and any associated conditions or restrictions.
+              </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">
+              <span
+                >What documents do I need to apply for different permit
+                types?</span
+              >
+            </button>
+            <div class="acc-content">
+              <div class="acc-inner">
+                Requirements vary by permit type, but generally include:
+                identification documents, site plans or business registration,
+                proof of insurance, and relevant safety or compliance
+                certificates. Each permit type page shows specific requirements.
+              </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">
+              <span>How long does the approval process typically take?</span>
+            </button>
+            <div class="acc-content">
+              <div class="acc-inner">
+                Most applications receive initial review within 1-3 business
+                days. Complex permits may take 5-10 days. You'll receive email
+                updates at each stage, and can track progress 24/7 through your
+                account dashboard.
+              </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">
+              <span>Is my payment and personal information secure?</span>
+            </button>
+            <div class="acc-content">
+              <div class="acc-inner">
+                Absolutely. We use bank-level encryption, secure payment
+                processing through certified providers, and never store complete
+                card details on our servers. All data is protected according to
+                government security standards.
+              </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">
+              <span>Can I save my application and complete it later?</span>
+            </button>
+            <div class="acc-content">
+              <div class="acc-inner">
+                Yes! Your application progress is automatically saved as you
+                work. You can log back in anytime to continue where you left
+                off. Draft applications are saved for 30 days before expiring.
+              </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn">
+              <span>What payment methods do you accept?</span>
+            </button>
+            <div class="acc-content">
+              <div class="acc-inner">
+                We accept all major credit and debit cards (Visa, Mastercard,
+                American Express), as well as direct bank transfers and digital
+                wallets like Apple Pay and Google Pay for your convenience.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem">
+          <a href="#contact" class="btn btn-outline">
+            <span>💬</span>
+            Still have questions? Contact us
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Footer -->
+    <footer id="contact">
+      <div class="footer-content">
+        <div class="container footer-top">
+          <div class="grid md:grid-3">
+            <div class="animate-in-left">
+              <div class="footer-brand">
+                <span class="brand-badge" aria-hidden="true">🛡️</span>
+                <span>MSA County Permits</span>
+              </div>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.8);
+                  line-height: 1.6;
+                  margin: 0 0 2rem;
+                  max-width: 300px;
+                "
+              >
+                Digitizing access to essential county services for residents and
+                contractors across MSA County.
+              </p>
+              <div style="display: flex; gap: 1rem">
+                <a
+                  class="link"
+                  href="mailto:support@msa.gov"
+                  aria-label="Email support"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 48px;
+                    height: 48px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: var(--radius-md);
+                    font-size: 1.25rem;
+                  "
+                >
+                  ✉️
+                </a>
+                <a
+                  class="link"
+                  href="tel:+15555550133"
+                  aria-label="Phone support"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 48px;
+                    height: 48px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: var(--radius-md);
+                    font-size: 1.25rem;
+                  "
+                >
+                  ☎️
+                </a>
+                <a
+                  class="link"
+                  href="https://maps.google.com"
+                  aria-label="Location"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 48px;
+                    height: 48px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: var(--radius-md);
+                    font-size: 1.25rem;
+                  "
+                >
+                  📍
+                </a>
+              </div>
+            </div>
+
+            <div class="animate-in" style="animation-delay: 0.1s">
+              <h4>Permit Services</h4>
+              <div class="links">
+                <a class="link" href="#permits">
+                  <span>💼</span> Occupational Permits
+                </a>
+                <a class="link" href="#permits">
+                  <span>🔨</span> Demolition Permits
+                </a>
+                <a class="link" href="#permits">
+                  <span>🧱</span> Hoarding Permits
+                </a>
+                <a class="link" href="#permits">
+                  <span>🗑️</span> Dumping Permits
+                </a>
+              </div>
+            </div>
+
+            <div class="animate-in" style="animation-delay: 0.2s">
+              <h4>Support & Resources</h4>
+              <div class="links">
+                <a class="link" href="#faqs">
+                  <span>❓</span> FAQ & Help Center
+                </a>
+                <a class="link" href="#apply">
+                  <span>🚀</span> Start New Application
+                </a>
+                <a class="link" href="#track">
+                  <span>📊</span> Track Existing Permit
+                </a>
+                <a class="link" href="#hero">
+                  <span>📋</span> Terms & Conditions
+                </a>
+                <a class="link" href="mailto:support@msa.gov">
+                  <span>💬</span> Contact Support
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <small
+            >© <span id="year"></span> MSA County Government. All rights
+            reserved. | Proudly serving our community with digital
+            innovation.</small
+          >
+          <small>
+            <a
+              class="link"
+              href="#hero"
+              style="display: flex; align-items: center; gap: 0.5rem"
+            >
+              <span>↑</span>
+              Back to top
+            </a>
+          </small>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Enhanced Back to top -->
+    <button id="toTop" aria-label="Back to top">↑</button>
+
+    <script>
+      // Enhanced animations on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = "running";
+          }
+        });
+      }, observerOptions);
+
+      // Observe all animated elements
+      document
+        .querySelectorAll(
+          ".animate-in, .animate-in-left, .animate-in-right, .animate-scale"
+        )
+        .forEach((el) => {
+          el.style.animationPlayState = "paused";
+          observer.observe(el);
+        });
+
+      // Enhanced navbar scroll effect
+      const navbar = document.querySelector(".navbar");
+      let lastScrollTop = 0;
+
+      window.addEventListener("scroll", () => {
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > 100) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+
+        lastScrollTop = scrollTop;
+      });
+
+      // Enhanced navbar toggle with animation
+      const navToggle = document.getElementById("navToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      navToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        navToggle.classList.toggle("active");
+        navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+
+      // Close mobile nav on link click
+      document.querySelectorAll("#navLinks a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          navToggle.classList.remove("active");
+          navToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      // Enhanced back to top with smooth scroll
+      const toTop = document.getElementById("toTop");
+
+      const toggleBackToTop = () => {
+        if (window.scrollY > 600) {
+          toTop.classList.add("show");
+        } else {
+          toTop.classList.remove("show");
+        }
+      };
+
+      window.addEventListener("scroll", toggleBackToTop);
+      toggleBackToTop();
+
+      toTop.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Enhanced tracking simulation with loading states
+      const form = document.getElementById("trackForm");
+      const input = document.getElementById("permitInput");
+      const output = document.getElementById("trackResult");
+      const button = document.getElementById("trackBtn");
+
+      function simulateTracking(permitId) {
+        const trimmed = (permitId || "").trim().toUpperCase();
+
+        if (!trimmed) {
+          return {
+            type: "warning",
+            icon: "⚠️",
+            title: "Missing Information",
+            text: "Please enter a permit number to track your application.",
+          };
+        }
+
+        if (/^MSA-\d{5}$/.test(trimmed)) {
+          const statuses = [
+            {
+              type: "success",
+              icon: "✅",
+              title: "Active & Valid",
+              text: `Permit ${trimmed} is ACTIVE and VALID. Expires: Dec 31, 2025`,
+            },
+            {
+              type: "warning",
+              icon: "⏳",
+              title: "Under Review",
+              text: `Permit ${trimmed} is currently under review. Expected completion: 2-3 business days.`,
+            },
+          ];
+          return statuses[Math.floor(Math.random() * statuses.length)];
+        }
+
+        return {
+          type: "danger",
+          icon: "❌",
+          title: "Not Found",
+          text: `Permit ${trimmed} was not found in our system. Please check the number and try again.`,
+        };
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Show loading state
+        button.disabled = true;
+        button.innerHTML =
+          '<span class="loading" style="width:20px;height:20px;border-radius:50%;margin-right:8px"></span>Checking...';
+        output.innerHTML = "";
+
+        // Add loading class to input
+        input.classList.add("loading");
+
+        setTimeout(() => {
+          const result = simulateTracking(input.value);
+
+          output.innerHTML = `
+          <div class="alert alert-${result.type}" style="display:flex;align-items:flex-start;gap:12px">
+            <span style="font-size:1.25rem">${result.icon}</span>
+            <div>
+              <div style="font-weight:600;margin-bottom:4px">${result.title}</div>
+              <div>${result.text}</div>
+            </div>
+          </div>
+        `;
+
+          // Reset button and input
+          button.disabled = false;
+          button.innerHTML = "<span>🔍</span><span>Track Status Now</span>";
+          input.classList.remove("loading");
+        }, 1500);
+      });
+
+      // Enhanced carousel with touch support
+      const slides = document.getElementById("slides");
+      const prevBtn = document.getElementById("prev");
+      const nextBtn = document.getElementById("next");
+      let currentIndex = 0;
+      let isAnimating = false;
+      let autoPlayInterval;
+
+      const totalSlides = slides.children.length;
+
+      function goToSlide(index, direction = "next") {
+        if (isAnimating) return;
+
+        isAnimating = true;
+        currentIndex = (index + totalSlides) % totalSlides;
+
+        slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        setTimeout(() => {
+          isAnimating = false;
+        }, 800);
+      }
+
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+
+      // Event listeners for controls
+      nextBtn.addEventListener("click", nextSlide);
+      prevBtn.addEventListener("click", prevSlide);
+
+      // Auto-advance carousel
+      function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 6000);
+      }
+
+      function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+      }
+
+      startAutoPlay();
+
+      // Pause on hover
+      const carousel = document.getElementById("carousel");
+      carousel.addEventListener("mouseenter", stopAutoPlay);
+      carousel.addEventListener("mouseleave", startAutoPlay);
+
+      // Touch/swipe support for mobile
+      let startX = 0;
+      let currentX = 0;
+      let isDragging = false;
+
+      carousel.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+        stopAutoPlay();
+      });
+
+      carousel.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX;
+      });
+
+      carousel.addEventListener("touchend", () => {
+        if (!isDragging) return;
+
+        const diffX = startX - currentX;
+        const threshold = 50;
+
+        if (Math.abs(diffX) > threshold) {
+          if (diffX > 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        }
+
+        isDragging = false;
+        startAutoPlay();
+      });
+
+      // Enhanced accordion with smooth animations
+      document.querySelectorAll(".acc-item").forEach((item, index) => {
+        const button = item.querySelector(".acc-btn");
+        const content = item.querySelector(".acc-content");
+        const inner = item.querySelector(".acc-inner");
+
+        button.addEventListener("click", () => {
+          const isOpen = button.classList.contains("open");
+
+          // Close all other accordions
+          document.querySelectorAll(".acc-item .acc-btn").forEach((btn) => {
+            if (btn !== button) {
+              btn.classList.remove("open");
+              const otherContent =
+                btn.parentElement.querySelector(".acc-content");
+              if (otherContent) {
+                otherContent.style.maxHeight = "0px";
+              }
+            }
+          });
+
+          // Toggle current accordion
+          button.classList.toggle("open");
+
+          if (!isOpen) {
+            content.style.maxHeight = inner.scrollHeight + "px";
+          } else {
+            content.style.maxHeight = "0px";
+          }
+        });
+      });
+
+      // Keyboard navigation for accessibility
+      document.addEventListener("keydown", (e) => {
+        if (e.target.closest(".carousel")) {
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            prevSlide();
+          } else if (e.key === "ArrowRight") {
+            e.preventDefault();
+            nextSlide();
+          }
+        }
+      });
+
+      // Enhanced form validation
+      input.addEventListener("input", (e) => {
+        const value = e.target.value.toUpperCase();
+
+        // Auto-format permit number
+        if (value.startsWith("MSA-")) {
+          // Allow MSA- prefix
+        } else if (value.match(/^\d/)) {
+          e.target.value = "MSA-" + value;
+        }
+
+        // Limit to correct format
+        const formatted = e.target.value.replace(/[^MSA\-0-9]/g, "");
+        if (formatted !== e.target.value) {
+          e.target.value = formatted;
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            const offsetTop = target.offsetTop - 100; // Account for fixed navbar
+            window.scrollTo({
+              top: offsetTop,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Add loading states to buttons
+      document.querySelectorAll(".btn").forEach((btn) => {
+        if (btn.type !== "submit" && !btn.id) {
+          btn.addEventListener("click", function (e) {
+            if (this.href && this.href.includes("#")) return; // Skip anchor links
+
+            // Add loading state for external links
+            const originalContent = this.innerHTML;
+            this.innerHTML =
+              '<span class="loading" style="width:16px;height:16px;border-radius:50%;margin-right:8px"></span>Loading...';
+            this.style.pointerEvents = "none";
+
+            // Reset after delay (simulate loading)
+            setTimeout(() => {
+              this.innerHTML = originalContent;
+              this.style.pointerEvents = "auto";
+            }, 2000);
+          });
+        }
+      });
+
+      // Parallax effect for hero section (optional, only if user prefers motion)
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        window.addEventListener("scroll", () => {
+          const scrolled = window.pageYOffset;
+          const hero = document.querySelector(".hero");
+          if (hero && scrolled < hero.offsetHeight) {
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+          }
+        });
+      }
+
+      // Enhanced error handling for images
+      document.querySelectorAll("img").forEach((img) => {
+        img.addEventListener("error", function () {
+          this.style.backgroundColor = "var(--bg-subtle)";
+          this.style.display = "flex";
+          this.style.alignItems = "center";
+          this.style.justifyContent = "center";
+          this.innerHTML = '<span style="color:var(--text-muted)">📷</span>';
+        });
+      });
+
+      // Performance optimization: Lazy loading for images
+      if ("IntersectionObserver" in window) {
+        const imageObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute("data-src");
+                imageObserver.unobserve(img);
+              }
+            }
+          });
+        });
+
+        document.querySelectorAll("img[data-src]").forEach((img) => {
+          imageObserver.observe(img);
+        });
+      }
+
+      // Add ripple effect to buttons (modern touch feedback)
+      document.querySelectorAll(".btn").forEach((button) => {
+        button.addEventListener("click", function (e) {
+          const ripple = document.createElement("span");
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+
+          ripple.style.cssText = `
+          position: absolute;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${x}px;
+          top: ${y}px;
+          background: rgba(255,255,255,0.3);
+          border-radius: 50%;
+          transform: scale(0);
+          animation: ripple 0.6s ease-out;
+          pointer-events: none;
+        `;
+
+          // Add ripple animation
+          const style = document.createElement("style");
+          style.textContent = `
+          @keyframes ripple {
+            to {
+              transform: scale(2);
+              opacity: 0;
+            }
+          }
+        `;
+          if (!document.querySelector("style[data-ripple]")) {
+            style.setAttribute("data-ripple", "");
+            document.head.appendChild(style);
+          }
+
+          this.style.position = "relative";
+          this.style.overflow = "hidden";
+          this.appendChild(ripple);
+
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      });
+
+      // Progressive Web App features (if supported)
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          // Service worker registration would go here
+          console.log("PWA features available");
+        });
+      }
+
+      // Accessibility improvements
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Tab") {
+          document.body.classList.add("keyboard-navigation");
+        }
+      });
+
+      document.addEventListener("mousedown", () => {
+        document.body.classList.remove("keyboard-navigation");
+      });
+
+      // Add focus styles for keyboard navigation
+      const keyboardStyle = document.createElement("style");
+      keyboardStyle.textContent = `
+      .keyboard-navigation *:focus {
+        outline: 2px solid var(--primary) !important;
+        outline-offset: 2px !important;
+      }
+    `;
+      document.head.appendChild(keyboardStyle);
+
+      console.log("🚀 MSA County Permits - Enhanced UI loaded successfully!");
+    </script>
+  </body>
+</html>
